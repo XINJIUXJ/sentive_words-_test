@@ -14,6 +14,15 @@ ans_txt = []
 ans = []
 num = 0
 
+def io_error(path):
+    try:
+        f = open(path, 'r')
+    except io_error:
+        print('抱歉！没有找到')
+        exit(0)
+    else:
+        f.close()
+
 def read_file():
     global words_txt, org_txt
     with open(org_path, 'r+', encoding='utf-8') as f:
@@ -101,7 +110,7 @@ class AcAutomation(object):
         if result != set():
             for i in result:
                 ans.append('Line'+str(num)+': <'+i[0]+'> '+i[0]+'\n')
-            return result
+            return i[0]
         return 0
 
 
@@ -129,6 +138,9 @@ def deal():
 
 
 if __name__ == "__main__":
+    io_error(org_path)
+    io_error(words_path)
+    io_error(ans_path)
     read_file()
     ac = AcAutomation(user_dict_path=words_path)
     ac.add_keyword()  # 添加关键词到AC自动机
